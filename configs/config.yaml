@@ -1,0 +1,31 @@
+project:
+  name: "turbofan-rul-engine"
+  dataset: "FD001"
+
+paths:
+  raw_train: "data/raw/train_FD001.txt"
+  raw_test: "data/raw/test_FD001.txt"
+  raw_rul: "data/raw/RUL_FD001.txt"
+  processed_dir: "data/processed"
+  artifacts_dir: "artifacts"
+
+mlflow:
+  tracking_uri: "sqlite:///mlflow.db"
+  experiment_name: "fd001-rul-prediction"
+
+data:
+  val_size: 0.2
+  random_seed: 42
+  rul_clip_max: 125
+
+features:
+  drop_sensors: []          # Will be populated after Phase 2 EDA
+  rolling_windows: [5, 10]
+
+model:
+  type: "lightgbm"
+  params:
+    n_estimators: 200
+    learning_rate: 0.05
+    max_depth: 6
+    random_state: 42
